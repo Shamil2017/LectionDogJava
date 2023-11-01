@@ -23,22 +23,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadImage() {
-        URL url = null;
-        HttpURLConnection urlConnection = null;
-        StringBuilder result = new StringBuilder();
-        try {
-            url = new URL(Base_Url);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream inputStream = urlConnection.getInputStream();
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String res = reader.readLine();
-            Log.d("MainActivity",res);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                URL url = null;
+                HttpURLConnection urlConnection = null;
+                StringBuilder result = new StringBuilder();
+                try {
+                    url = new URL(Base_Url);
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    InputStream inputStream = urlConnection.getInputStream();
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                    BufferedReader reader = new BufferedReader(inputStreamReader);
+                    String res = reader.readLine();
+                    Log.d("MainActivity",res);
 
 
-        } catch (Exception e) {
-            Log.d("MainActivity", e.toString());
+                } catch (Exception e) {
+                    Log.d("MainActivity", e.toString());
 
-        }
+                }
+            }
+        }).start();
+
     }
 }
